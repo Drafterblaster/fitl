@@ -20,3 +20,5 @@ Route::get('welcome', function () {
 });
 
 Route::get('about', 'PageController@about');
+
+Route::get('fillorders/{fillorder}', 'FillorderController@show');
