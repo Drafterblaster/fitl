@@ -21,4 +21,6 @@ Route::get('welcome', function () {
 
 Route::get('about', 'PageController@about');
 
-Route::get('fillorders/{fillorder}', 'FillorderController@show');
+Route::get('fillorder/{fillorder}', 'FillorderController@order');
+
+Route::get('contact', 'ContactController@contact');

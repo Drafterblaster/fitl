@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Part-buddy - @yield('title')</title>
+		<title>part-buddy - @yield('title')</title>
+		<Link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+		<Link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 	</head>
 	<body>
-		<p>[ HEADER ]</p>
-		
-		@yield('content')
 
-		<p>[ FOOTER ]</p>
+		@include('shared.header')
+
+	<div class="container">		
+		@yield('content')
+	</div>
+
+	@include('shared.footer')
+
+		<script src="{{ asset('js/jquery-3.3.1.js') }}"></script>
+		<script src="{{ asset('js/bootstrap.js') }}"></script>
 	</body>
 </html>
