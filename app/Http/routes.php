@@ -19,8 +19,14 @@ Route::get('welcome', function () {
     return view('welcome');
 });
 
+ 
 Route::get('about', 'PageController@about');
+Route::get('contact', 'PageController@contact');
 
-Route::get('fillorder/{fillorder}', 'FillorderController@order');
+// { } means that it needs to pass in an id via the url like fillorder/1
+//Route::get('fillorders/{fillorder}', 'Fillorder@show');
 
-Route::get('contact', 'ContactController@contact');
+Route::post('fillorders/store', 'FillorderController@store');
+Route::get('fillorders/create', 'FillorderController@create');
+Route::get('fillorders/{fillorder}', 'FillorderController@show');
+Route::get('fillorders', 'FillorderController@index');

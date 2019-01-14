@@ -8,5 +8,3 @@ class Fillorder extends Model
 {
 	
 }
-
-?>
