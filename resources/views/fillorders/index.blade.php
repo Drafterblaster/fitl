@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="page-header">
-	<h1>Parts, get your parts here</h1>
+	<h1>Open Orders</h1>
 </div>
 
 <div class="list-group">

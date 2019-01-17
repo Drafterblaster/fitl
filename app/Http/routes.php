@@ -26,6 +26,7 @@ Route::get('contact', 'PageController@contact');
 // { } means that it needs to pass in an id via the url like fillorder/1
 //Route::get('fillorders/{fillorder}', 'Fillorder@show');
 
+Route::delete('fillorders/{fillorder}', 'FillorderController@destroy');
 Route::get('fillorders/{fillorder}/edit', 'FillorderController@edit');
 Route::put('fillorders/{fillorder}', 'FillorderController@update');
 Route::post('fillorders/store', 'FillorderController@store');

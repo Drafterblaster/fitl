@@ -3,6 +3,9 @@
 @section('title', $object->title)
 
 @section('content')
+<div class="page-header">
+	<a href="{{ action('FillorderController@edit', $object->id) }}"
+		class="btn btn-info pull-right">Edit</a>
 <h1><?php echo $object->title; ?></h1>
 <p><?php echo $object->type; ?></p>
 <p><?php echo $object->deliver; ?></p>

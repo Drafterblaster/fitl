@@ -170,6 +170,13 @@ class FillorderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $fillorder = Fillorder::findOrFail($id);
+
+        $fillorder->delete();
+
+        return redirect()
+            ->action('FillorderController@index')
+            ->with('message',
+                '<div class="alert alert-info">Your Order has been Deleted</div>');
     }
 }

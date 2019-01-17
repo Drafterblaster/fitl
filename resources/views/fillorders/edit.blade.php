@@ -8,14 +8,20 @@
 </div>
 
 
-{!! Form::model($fillorder, ['action' => ['FillorderController@update', $fillorder->id], 'method' => 'put']) !!}
+{!! Form::model($fillorder,
+	[
+		'action' => ['FillorderController@update', $fillorder->id],
+		'method' => 'put'
+	])
+!!}
 	
 	@include('fillorders.partials.object_form')
 
   <button class="btn-success" type="submit">Update your Order</button>
 
-<BR><BR>
-
 {!! Form::close() !!}
 
+@include('fillorders.partials.delete_object')
+
+<BR><BR>
 @endsection
