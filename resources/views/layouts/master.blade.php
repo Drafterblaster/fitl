@@ -9,7 +9,11 @@
 
 		@include('shared.header')
 
-		<div class="container">		
+		<div class="container">
+			@include('shared.errors')
+
+			@include('shared.message')
+
 			@yield('content')
 		</div>
 
@@ -17,6 +21,5 @@
 
 		<script src="{{ asset('js/jquery-3.3.1.js') }}"></script>
 		<script src="{{ asset('js/bootstrap.js') }}"></script>
-
 	</body>
 </html>
