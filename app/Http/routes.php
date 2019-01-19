@@ -33,3 +33,9 @@ Route::post('fillorders/store', 'FillorderController@store');
 Route::get('fillorders/create', 'FillorderController@create');
 Route::get('fillorders/{fillorder}', 'FillorderController@show');
 Route::get('fillorders', 'FillorderController@index');
+
+				// Route::resource automatically provides you with
+				// all of the routes for the controller 
+Route::resource('fillorders.parts', 'FillorderPartController',
+				['only' => ['store', 'update', 'destroy']]);
+				// 'only' if you don't need all of the routes

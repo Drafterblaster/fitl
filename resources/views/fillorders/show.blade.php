@@ -18,11 +18,6 @@
 <pre><?php echo $object->custom_03; ?></pre>				
 <p>Order submitted at: <?php echo $object->created_at; ?></p>
 
-<h2>Parts</h2>
-
-@foreach ($object->parts as $part)
-	<p>{{ $part->part }}</p>
-	<div><small>{{ $part->created_at->diffForHumans() }}</small></div>
-@endforeach
+@include('fillorders.parts.partials.display')
 
 @endsection
