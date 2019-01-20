@@ -8,3 +8,10 @@ $('form.delete-object').submit(function(e) {
 	return deleteConfirmed;
 
 });
+
+// toggle part edit forms when "edit" buttons are clicked
+$('.edit-object').click(function(e) {
+	var $partItem = $(this).closest('li');
+	var $partForm = $partItem.find('form.edit-object-form');
+	$partForm.toggleClass('hide');
+});

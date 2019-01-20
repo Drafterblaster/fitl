@@ -46,8 +46,7 @@ class FillorderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-    // * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -93,7 +92,7 @@ class FillorderController extends Controller
     public function show($id)
     {
         $data = array();
-        //$data['id'] = $id;
+        // $data['id'] = $id;
         $fillorder = Fillorder::findOrFail($id);
         $data['object'] = $fillorder;
 
@@ -146,7 +145,7 @@ class FillorderController extends Controller
         $fillorder->custom_02 = $request->custom_02;
         $fillorder->custom_03 = $request->custom_03;
 
-    // if the save fails, redirect back to the edir page and show the errors
+    // if the save fails, redirect back to the edit page and show the errors
         if (!$fillorder->save()) {
         return redirect()
             ->action('FillorderController@edit', $fillorder->id)
