@@ -65,6 +65,9 @@ class FillorderController extends Controller
      */
     public function store(Request $request)
     {
+
+    //echo '<pre>' . print_r($request->all(), true) . '</pre>'; exit;
+
         $fillorder = new Fillorder;
 
     // set the fillorder's data from the form data
@@ -75,11 +78,12 @@ class FillorderController extends Controller
         $fillorder->custom_01 = $request->custom_01;
         $fillorder->custom_02 = $request->custom_02;
         $fillorder->custom_03 = $request->custom_03;
-        $fillorder->types()->sync([$request->type_id]);
+        $fillorder->types()->sync($request->type_id);
 
     // create the order in the database
         if (!$fillorder->save()) {
             $errors = $fillorder->getErrors();
+
         //echo '<pre>';
         //print_r($errors);
         //echo '</pre>';
@@ -90,14 +94,14 @@ class FillorderController extends Controller
             ->action('FillorderController@create')
             ->with('errors', $errors)
             ->withInput();
-        
+
+        }
 
     // Success!!
         return redirect()
             ->action('FillorderController@index')
             ->with('message',
                 '<div class="alert alert-success">Order Placed Successfully!</div>');
-        }
     }
 
     /**
@@ -163,7 +167,7 @@ class FillorderController extends Controller
         $fillorder->custom_01 = $request->custom_01;
         $fillorder->custom_02 = $request->custom_02;
         $fillorder->custom_03 = $request->custom_03;
-        $fillorder->types()->sync([$request->type_id]);
+        $fillorder->types()->sync($request->type_id);
     // if the save fails, redirect back to the edit page and show the errors
         if (!$fillorder->save()) {
         return redirect()
