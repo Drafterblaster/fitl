@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Fillorder;
+use App\Type;
 
 class FillorderController extends Controller
 {
@@ -40,6 +41,20 @@ class FillorderController extends Controller
         $fillorder = new Fillorder;
         $data = array();
         $data['fillorder'] = $fillorder;
+
+        // Type::all() will access all       
+        // <select><option value="VALUE">TEXT</option></select>
+        // need the array to be in the form of value to text [ VALUE => TEXT, VALUE => TEXT ]
+        // 'name' for the TEXT and 'id' for the VALUE
+        // <option value="1">Brand #1</option>
+        // <option value="2">Brand #2</option>
+        $data['types'] = Type::lists('name', 'id');
+
+        //echo '<pre>';
+        //print_r($data['types']);
+        //echo '</pre>';
+        //exit;
+
         return view('fillorders.create', $data);
     }
 
@@ -60,6 +75,7 @@ class FillorderController extends Controller
         $fillorder->custom_01 = $request->custom_01;
         $fillorder->custom_02 = $request->custom_02;
         $fillorder->custom_03 = $request->custom_03;
+        $fillorder->types()->sync([$request->type_id]);
 
     // create the order in the database
         if (!$fillorder->save()) {
@@ -74,13 +90,14 @@ class FillorderController extends Controller
             ->action('FillorderController@create')
             ->with('errors', $errors)
             ->withInput();
-    }
+        
 
     // Success!!
         return redirect()
             ->action('FillorderController@index')
             ->with('message',
                 '<div class="alert alert-success">Order Placed Successfully!</div>');
+        }
     }
 
     /**
@@ -123,7 +140,9 @@ class FillorderController extends Controller
     public function edit($id)
     {
         $fillorder = Fillorder::findOrFail($id);
-        return view('fillorders.edit', ['fillorder' => $fillorder]);
+        $types = Type::lists('name', 'id');
+        return view('fillorders.edit', ['fillorder' => $fillorder, 'types' => $types
+        ]);
     }
 
     /**
@@ -144,7 +163,7 @@ class FillorderController extends Controller
         $fillorder->custom_01 = $request->custom_01;
         $fillorder->custom_02 = $request->custom_02;
         $fillorder->custom_03 = $request->custom_03;
-
+        $fillorder->types()->sync([$request->type_id]);
     // if the save fails, redirect back to the edit page and show the errors
         if (!$fillorder->save()) {
         return redirect()

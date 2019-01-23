@@ -3,6 +3,7 @@
 @section('title', 'Submit an Order')
 
 @section('content')
+
 <div class="page-header">
 	<h1>Place your Order</h1>
 </div>

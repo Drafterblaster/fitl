@@ -32,3 +32,10 @@
     {!! Form::label('custom_03', 'Customize (optional)') !!}
     {!! Form::text('custom_03', null, ['class' => 'form-control']) !!}
   </div>
+
+  <div class="form-group">
+    {!! Form::label('type_id[]', 'Brand Names') !!}
+    {!! Form::select('type_id[]', $types,
+      $fillorder->types->lists('id')->all(),
+      ['multiple' => true, 'class' => 'form-control']) !!}
+  </div>

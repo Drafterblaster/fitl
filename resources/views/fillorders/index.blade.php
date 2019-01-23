@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="page-header">
+	<a href="{{ url('fillorders/create') }}" class="btn btn-success pull-right">+ Order</a>
 	<h1>Open Orders</h1>
 </div>
 
