@@ -39,3 +39,5 @@ Route::get('fillorders', 'FillorderController@index');
 Route::resource('fillorders.parts', 'FillorderPartController',
 				['only' => ['store', 'update', 'destroy']]);
 				// 'only' if you don't need all of the routes
+
+Route::resource('types', 'TypeController');

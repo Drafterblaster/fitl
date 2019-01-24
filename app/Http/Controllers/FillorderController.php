@@ -27,6 +27,7 @@ class FillorderController extends Controller
 
         $data = array();
         $data['objects'] = $fillorders;
+        $data['types'] = Type::all();
 
         return view('fillorders.index', $data);
     }

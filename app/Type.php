@@ -2,10 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use \Esensi\Model\Model;
 
 class Type extends Model
 {
+	protected $rules = [ 'name' => ['required'] ];
     public function fillorders() {
 
 	// belongsToMany is a many-to-many relationship
