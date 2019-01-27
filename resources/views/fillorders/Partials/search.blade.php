@@ -1,7 +1,7 @@
 
 @extends('layouts.master')
 
-@section('title', 'Index Page Title')
+@section('title', 'Search results for "' . $q . '")
 
 @section('content')
 
@@ -11,7 +11,7 @@
 
 		<div class="page-header">
 			<a href="{{ url('fillorders/create') }}" class="btn btn-success pull-right">+ Order</a>
-			<h1>Open Orders</h1>
+			<h1>Search results for "{{ $q }}"</h1>
 		</div>
 
 		@include('fillorders.partials.fillorders')

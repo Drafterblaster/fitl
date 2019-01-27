@@ -4,11 +4,10 @@
 
 	<div class="list-group">
 	@foreach ($types as $type)
-		<a class="list-group-item" href="{{ route('types.show', $fillorder->id) }}">
+		<a class="list-group-item" href="{{ route('types.show', $type->id) }}">
 		{{ $type->name }}
 		</a>
 	@endforeach
 	</div>
-
 
 </div><!-- /.col-sm-3 -->

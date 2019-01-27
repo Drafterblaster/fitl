@@ -1,6 +1,6 @@
 
 {!! Form::open([
-	'route' => ['fillorders.parts.destroy', $object->id, $part->id],
+	'route' => ['fillorders.parts.destroy', $fillorder->id, $part->id],
 	'method' => 'delete',
 	'class' => 'pull-left'
 ]) !!}

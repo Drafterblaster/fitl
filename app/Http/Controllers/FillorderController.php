@@ -10,8 +10,15 @@ use App\Http\Controllers\Controller;
 use App\Fillorder;
 use App\Type;
 
+use Auth;
+
 class FillorderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,10 +33,30 @@ class FillorderController extends Controller
         //echo '</pre>';
 
         $data = array();
-        $data['objects'] = $fillorders;
+        $data['fillorders'] = $fillorders;
         $data['types'] = Type::all();
 
         return view('fillorders.index', $data);
+    }
+
+    public function search(Request $request)
+    {
+        // test
+        //echo $request->q;
+
+        // retrieve query from URL
+        $q = $request->q;
+
+        // SQL LIKE format for matching on search query:
+        // %SEARCH_TERM%
+        $q_query = '%' . $q . '%';
+        $fillorders = Fillorder::where('title', 'LIKE', $q_query)
+                                ->orWhere('type', 'LIKE', $q_query)
+                                ->orWhere('description', 'LIKE', $q_query)
+                                ->get();
+
+        return view('fillorders.search',
+                        ['q' => $q, 'fillorders' => $fillorders, 'types' => Type::all() ]);
     }
 
     /**
@@ -79,10 +106,11 @@ class FillorderController extends Controller
         $fillorder->custom_01 = $request->custom_01;
         $fillorder->custom_02 = $request->custom_02;
         $fillorder->custom_03 = $request->custom_03;
-        $fillorder->types()->sync($request->type_id);
+    //    $fillorder->types()->sync($request->type_id);
+        $fillorder->user_id = Auth::user()->id;
 
     // create the order in the database
-        if (!$fillorder->save()) {
+        if ( ! $fillorder->save() ) {
             $errors = $fillorder->getErrors();
 
         //echo '<pre>';
@@ -116,7 +144,7 @@ class FillorderController extends Controller
         $data = array();
         // $data['id'] = $id;
         $fillorder = Fillorder::findOrFail($id);
-        $data['object'] = $fillorder;
+        $data['fillorder'] = $fillorder;
 
         // to test if the above command is working
         //echo '<pre>';
@@ -127,7 +155,7 @@ class FillorderController extends Controller
         //echo $fillorder->title;
         //exit;
 
-        //$data['object'] = $fillorder;
+        //$data['fillorder'] = $fillorder;
 
         // if it is working properly, this will print the number in the url onto the page
         //echo $id;
@@ -145,6 +173,11 @@ class FillorderController extends Controller
     public function edit($id)
     {
         $fillorder = Fillorder::findOrFail($id);
+
+        if ( ! $fillorder->canEdit() ) {
+            abort('403', 'Not authorized.');
+        }
+
         $types = Type::lists('name', 'id');
         return view('fillorders.edit', ['fillorder' => $fillorder, 'types' => $types
         ]);
@@ -160,6 +193,11 @@ class FillorderController extends Controller
     public function update($id, Request $request)
     {
         $fillorder = Fillorder::findOrFail($id);
+
+        if ( ! $fillorder->canEdit() ) {
+            abort('403', 'Not authorized.');
+        }
+
     // set the fillorder's data from the form data
         $fillorder->title = $request->title;
         $fillorder->type = $request->type;
@@ -170,7 +208,7 @@ class FillorderController extends Controller
         $fillorder->custom_03 = $request->custom_03;
         $fillorder->types()->sync($request->type_id);
     // if the save fails, redirect back to the edit page and show the errors
-        if (!$fillorder->save()) {
+        if ( ! $fillorder->save() ) {
         return redirect()
             ->action('FillorderController@edit', $fillorder->id)
             ->with('errors', $fillorder->getErrors())
@@ -194,6 +232,10 @@ class FillorderController extends Controller
     public function destroy($id)
     {
         $fillorder = Fillorder::findOrFail($id);
+
+        if ( ! $fillorder->canEdit() ) {
+            abort('403', 'Not authorized.');
+        }
 
         $fillorder->delete();
 

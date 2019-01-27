@@ -9,8 +9,15 @@ use App\Http\Controllers\Controller;
 
 use App\Part;
 
+use Auth;
+
 class FillorderPartController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -26,8 +33,10 @@ class FillorderPartController extends Controller
 
         $part->fillorder_id = $fillorderId;
         $part->part = $request->part;
+        $part->user_id = Auth::user()->id;
 
-        if (!$part->save()) {
+        if ( ! $part->save() )
+        {
 
         return redirect()
             ->action('FillorderController@show', $fillorderId)
@@ -55,9 +64,15 @@ class FillorderPartController extends Controller
     {
         $part = Part::findOrFail($id);
 
+        if ( ! $part->canEdit() )
+        {
+            abort('403', 'Not authorized.');
+        }
+
         $part->part = $request->part;
 
-        if (! $part->save() ) {
+        if (! $part->save() )
+        {
             return redirect()
             ->action('FillorderController@show', $fillorderId)
             ->with('errors', $part->getErrors())
@@ -81,6 +96,10 @@ class FillorderPartController extends Controller
     public function destroy($fillorderId, $id)
     {
         $part = Part::findOrFail($id);
+
+        if ( ! $part->canEdit() ) {
+            abort('403', 'Not authorized.');
+        }
 
         $part->delete();
 
