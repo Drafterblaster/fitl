@@ -1,4 +1,4 @@
-@extends ('layouts.master')
+@extends ('layouts.admin')
 
 @section('title', 'Edit a Type or Brand')
 
@@ -8,9 +8,9 @@
 	<h1>Edit a Type</h1>
 </div>
 
-{!! Form::model($type, ['route' => ['types.update', $type->id ], 'method' => 'put']) !!}
+{!! Form::model($type, ['route' => ['admin.types.update', $type->id ], 'method' => 'put']) !!}
 
-	@include('types.partials.object_form')
+	@include('admin.types.partials.object_form')
 
   <button class="btn-success" type="submit">Save Changes</button>
 
@@ -18,6 +18,6 @@
 
 {!! Form::close() !!}
 
-@include('types.partials.delete_object')
+@include('admin.types.partials.delete_object')
 
 @endsection

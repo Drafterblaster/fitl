@@ -42,8 +42,6 @@ Route::resource('fillorders.parts', 'FillorderPartController',
 				['only' => ['store', 'update', 'destroy']]);
 				// 'only' if you don't need all of the routes
 
-Route::resource('types', 'TypeController');
-
 // user routes
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
@@ -61,3 +59,17 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 // User Profile.
 Route::get('profile', 'ProfileController@profile');
+
+// Programming types
+Route::resource('types', 'TypeController', ['only' => ['show']]);
+
+// ADMIN ONLY
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'admin'], function() {
+// route group - everything that happens inside curly brackets is for admin only
+
+	// accessible via admin/users...
+	Route::resource('users', 'UserController');
+
+	Route::resource('types', 'TypeController',
+				['except' => ['show']]);
+});

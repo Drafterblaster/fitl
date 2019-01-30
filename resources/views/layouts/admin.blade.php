@@ -8,7 +8,7 @@
 	</head>
 	<body>
 
-		@include('shared.header')
+		@include('shared.header_admin')
 
 		<div class="container">
 			@include('shared.errors')
