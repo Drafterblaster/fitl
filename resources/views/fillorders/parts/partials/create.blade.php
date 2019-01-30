@@ -1,6 +1,6 @@
 <h3>Add a Part:</h3>
 
-{!! Form::open(['route' => ['fillorders.parts.store', $object->id]]) !!}
+{!! Form::open(['route' => ['fillorders.parts.store', $fillorder->id]]) !!}
 
 	@include('fillorders.parts.partials.part_form')
 

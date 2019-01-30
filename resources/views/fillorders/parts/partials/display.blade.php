@@ -7,7 +7,7 @@
 <hr>
 
 <ul class="list-group">
-@foreach ($object->parts as $part)
+@foreach ($fillorder->parts as $part)
 	<li class="list-group-item">
 		<div class="text-muted">
 			<small>{{ $part->created_at->diffForHumans() }}</small>

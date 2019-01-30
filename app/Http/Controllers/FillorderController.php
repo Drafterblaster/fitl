@@ -206,7 +206,7 @@ class FillorderController extends Controller
         $fillorder->custom_01 = $request->custom_01;
         $fillorder->custom_02 = $request->custom_02;
         $fillorder->custom_03 = $request->custom_03;
-        $fillorder->types()->sync($request->type_id);
+        $fillorder->types()->sync = $request->type_id;
     // if the save fails, redirect back to the edit page and show the errors
         if ( ! $fillorder->save() ) {
         return redirect()
